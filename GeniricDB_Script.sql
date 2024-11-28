@@ -22,23 +22,25 @@ IsDeleted bit null
 )
 --Create Phhones Table to store multi-Phones per person 
 
+--Drop Table Phones
 Create Table Phones
 (
 PhoneID int identity(1,1) primary key, 
-Number int not null, 
-CompanySymbole nvarchar(10) not null, 
-CountrySymbol nvarchar(10) not null, 
 PersonID int references People(PersonID), 
+Number nvarchar(20) not null, 
+CountrySymbole nvarchar(10) not null, 
+CompanySymbole nvarchar(10) not null, 
+CompanyName nvarchar(20) not null, 
 IsDeleted bit null
 ) 
 
-ALTER TABLE Phones 
-Alter Column Number nvarchar(20) 
+
 --
 
-Create Table Deparetments 
+Create Table Departements 
 (
 DepartementID int primary key identity(1,1), 
+
 DepartementName nvarchar(100) not null, 
 DepDescription nvarchar(500) null,
 Ranke int null, 
@@ -48,8 +50,9 @@ IsDeleted bit null
 Create Table Employees  
 (
 EmployeeID int primary key identity(1,1), 
+PersonID int references People(PersonID) not null,
 ESalary decimal (10,2) null, 
-EDepartementID int references Deparetments(DepartementID), 
+EDepartementID int references Departements(DepartementID), 
 HireDate DateTime not null, 
 EmployeeRate int null, 
 EmployeesNotes nvarchar(250) null, 
@@ -67,3 +70,12 @@ RecordID int not null,
 ActionDateTime DateTime not null 
 )
 
+Create Table SalaryUpdatesLog 
+(
+UpdateID int primary key identity(1,1),
+EmployeeID int references Employees(EmployeeID), 
+OldSalary smallmoney not null, 
+NewSalary smallmoney not null, 
+UpdateDateTime DateTime 
+
+)
