@@ -32,6 +32,8 @@ PersonID int references People(PersonID),
 IsDeleted bit null
 ) 
 
+ALTER TABLE Phones 
+Alter Column Number nvarchar(20) 
 --
 
 Create Table Deparetments 
